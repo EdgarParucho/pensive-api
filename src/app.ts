@@ -1,12 +1,18 @@
-import express from 'express';
+import express, { Request, Response } from 'express';
+import cors from 'cors';
+import useDevDependencies from './utils/useDevDependencies';
+import router from './routes';
 
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
-  res.send('Hello world!');
-});
+if (process.env.NODE_ENV !== 'production') useDevDependencies(app);
 
-app.listen(port, () => console.log(`Server is running on http://localhost:${port}`));
+app.use(cors());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(router);
+
+app.listen(port, () => console.log('Server Up'));
 
 export default app;
