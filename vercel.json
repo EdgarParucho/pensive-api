@@ -8,8 +8,8 @@
   ],
   "routes": [
     {
-      "source": "/(.*)",
-      "destination": "src/app.ts"
+      "src": "/(.*)",
+      "dest": "src/app.ts"
     }
   ]
 }
