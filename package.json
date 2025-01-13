@@ -5,7 +5,9 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/app.js",
-    "dev": "nodemon"
+    "dev": "NODE_ENV=development nodemon",
+    "migrations:generate": "sequelize-cli migration:generate --name",
+    "migrations:run": "sequelize-cli db:migrate --name"
   },
   "keywords": [],
   "author": "",
@@ -23,6 +25,7 @@
     "dotenv": "^16.4.7",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
+    "sequelize-cli": "^6.6.2",
     "ts-node": "^10.9.2",
     "typescript": "^5.7.3"
   },

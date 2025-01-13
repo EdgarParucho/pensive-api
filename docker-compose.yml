@@ -1,5 +1,5 @@
 services:
-  notebook_db:
+  notebook_database_dev:
     image: postgres:15
     environment:
       POSTGRES_DB: notebook
