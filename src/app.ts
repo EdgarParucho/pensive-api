@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import useDevDependencies from './utils/useDevDependencies';
 import router from './routes';
-import sequelize from './database';
+import sequelize from './database/sequelize';
 
 const app = express();
 const port = process.env.PORT || 3000;

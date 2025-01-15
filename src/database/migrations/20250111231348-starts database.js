@@ -1,16 +1,16 @@
 'use strict';
 
-const { DataType } = require('sequelize-typescript');
+const DataType = require('sequelize').DataTypes;
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
     await queryInterface.createTable('notes', {
-      id: { type: DataType.STRING, primaryKey: true },
+      id: { type: DataType.UUID, defaultValue: Sequelize.UUIDV4, primaryKey: true },
       author: { type: DataType.STRING, allowNull: false },
       date: { type: DataType.DATEONLY, defaultValue: DataType.NOW },
       title: { type: DataType.STRING, allowNull: false },
-      body: { type: DataType.STRING, allowNull: false },
+      body: { type: DataType.TEXT('medium'), allowNull: false },
       type: { type: DataType.STRING, allowNull: false },
       keywords: { type: DataType.STRING },
       reference: { type: DataType.STRING },
