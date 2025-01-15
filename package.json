@@ -5,7 +5,7 @@
   "scripts": {
     "build": "tsc",
     "start": "node ./dist/app.js",
-    "dev": "NODE_ENV=development nodemon",
+    "dev": "cross-env NODE_ENV=development nodemon",
     "migrations:generate": "sequelize-cli migration:generate --name",
     "migrations:run": "sequelize-cli db:migrate --name",
     "seeders:generate": "sequelize-cli seed:generate --name",
