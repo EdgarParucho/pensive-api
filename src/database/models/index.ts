@@ -8,8 +8,9 @@ import {
   Default
 } from 'sequelize-typescript';
 
-@Table
+@Table({ timestamps: false })
 class Note extends Model {
+  @Default(DataType.UUIDV4)
   @PrimaryKey
   @Column
   id!: string;
