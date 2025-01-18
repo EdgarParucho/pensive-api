@@ -14,12 +14,7 @@ app.use(morgan('dev'));
 app.use(router);
 
 app.listen(port, async () => {
-  try {
-    await sequelize.authenticate();
-    console.log(`Server is running on port ${port}`);
-  } catch (error) {
-    console.log(error);
-  }
+  console.log(`Server is running on port ${port}`);
 });
 
 export default app;
