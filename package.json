@@ -4,12 +4,14 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "node ./dist/app.js",
+    "start": "cross-env NODE_ENV=production node ./dist/app.js",
     "dev": "cross-env NODE_ENV=development nodemon",
-    "migrations:generate": "sequelize-cli migration:generate --name",
-    "migrations:run": "sequelize-cli db:migrate --name",
-    "seeders:generate": "sequelize-cli seed:generate --name",
-    "seeders:run": "sequelize-cli db:seed:all"
+    "migrate:generate": "sequelize-cli migration:generate --name",
+    "migrate:up": "sequelize-cli db:migrate --env",
+    "migrate:undo": "sequelize-cli db:migrate:undo --env",
+    "seed:generate": "sequelize-cli seed:generate --name --env",
+    "seed:up": "sequelize-cli db:seed:all --env",
+    "seed:undo": "sequelize-cli db:seed:undo --env"
   },
   "keywords": [],
   "author": "",
