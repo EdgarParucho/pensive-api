@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_typescript_1 = require("sequelize-typescript");
-const config_1 = require("../config");
+const config_1 = require("../config/");
 const inProduction = process.env.NODE_ENV === 'production';
 const sequelize = new sequelize_typescript_1.Sequelize({
     dialect: config_1.dbDialect,
