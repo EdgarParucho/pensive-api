@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
 import router from './routes';
-import sequelize from './database/sequelize';
 import morgan from 'morgan';
+import errorHandler from './middleware/errorHandler';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -12,9 +12,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan('dev'));
 app.use(router);
+app.use(errorHandler);
 
-app.listen(port, async () => {
-  console.log(`Server is running on port ${port}`);
-});
+app.listen(port, () => process.env.NODE_ENV === 'development'
+  ? console.log(`Server on http://localhost:${port}`)
+  : null
+);
 
 export default app;

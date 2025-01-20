@@ -5,34 +5,33 @@ import Service from '../services';
 const router = express.Router();
 const service = new Service();
 
-router.post('/api', function(req: Request, res: Response) {
+router.post('/api', function(req: Request, res: Response, next) {
   service.create(req.body as Partial<Note>)
     .then(() => res.sendStatus(201))
-    .catch((err: Error) => res.status(400));
+    .catch((err: Error) => next(err as Error));
 })
 
-router.get('/api',  function(req: Request, res: Response) {
+router.get('/api',  function(req: Request, res: Response, next) {
   const author = 'auth0|1234567890';
   service.read(author)
     .then((notes: Note[]) => res.json(notes))
-    .catch((err: Error) => res.status(400));
+    .catch((err: Error) => next(err as Error));
 });
 
-router.patch('/api/:id', function(req: Request, res: Response) {
+router.patch('/api/:id', function(req: Request, res: Response, next) {
   service.update(req.params.id, req.body as Partial<Note>)
     .then(() => res.sendStatus(200))
-    .catch((err: Error) => res.status(400));
+    .catch((err: Error) => next(err as Error));
 });
 
-router.delete('/api/:id', function(req: Request, res: Response) {
+router.delete('/api/:id', function(req: Request, res: Response, next) {
   service.delete(req.params.id)
     .then(() => res.sendStatus(200))
-    .catch((err: Error) => res.status(400));
+    .catch((err: Error) => next(err as Error));
 });
 
 router.use('/*', function(req: Request, res: Response) {
   res.sendStatus(404)
 });
-
 
 export default router;

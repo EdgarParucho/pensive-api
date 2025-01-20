@@ -17,52 +17,22 @@ const { models } = sequelize_1.default;
 class Service {
     create(note) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                console.log(note);
-                yield models.Note.create(note);
-                console.log('note created');
-                return;
-            }
-            catch (error) {
-                console.log(error);
-                throw error;
-            }
+            return yield models.Note.create(note);
         });
     }
     read(author) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                const data = yield models.Note.findAll({ where: { author }, raw: true });
-                return data;
-            }
-            catch (error) {
-                console.log(error);
-                throw error;
-            }
+            return yield models.Note.findAll({ where: { author }, raw: true });
         });
     }
     update(id, note) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield models.Note.update(note, { where: { id } });
-                return;
-            }
-            catch (error) {
-                console.log(error);
-                throw error;
-            }
+            return yield models.Note.update(note, { where: { id } });
         });
     }
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            try {
-                yield models.Note.destroy({ where: { id } });
-                return;
-            }
-            catch (error) {
-                console.log(error);
-                throw error;
-            }
+            return yield models.Note.destroy({ where: { id } });
         });
     }
 }
