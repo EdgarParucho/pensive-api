@@ -12,13 +12,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const models_1 = __importDefault(require("../database/models"));
+const sequelize_1 = __importDefault(require("../database/sequelize"));
+const { models } = sequelize_1.default;
 class Service {
     create(note) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield models_1.default.create(note);
-                return data;
+                console.log(note);
+                yield models.Note.create(note);
+                console.log('note created');
+                return;
             }
             catch (error) {
                 console.log(error);
@@ -29,7 +32,7 @@ class Service {
     read(author) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                const data = yield models_1.default.findAll({ where: { author }, raw: true });
+                const data = yield models.Note.findAll({ where: { author }, raw: true });
                 return data;
             }
             catch (error) {
@@ -41,7 +44,7 @@ class Service {
     update(id, note) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield models_1.default.update(note, { where: { id } });
+                yield models.Note.update(note, { where: { id } });
                 return;
             }
             catch (error) {
@@ -53,7 +56,7 @@ class Service {
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
             try {
-                yield models_1.default.destroy({ where: { id } });
+                yield models.Note.destroy({ where: { id } });
                 return;
             }
             catch (error) {

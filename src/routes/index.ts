@@ -7,7 +7,7 @@ const service = new Service();
 
 router.post('/api', function(req: Request, res: Response) {
   service.create(req.body as Partial<Note>)
-    .then((note: Note) => res.json(note))
+    .then(() => res.sendStatus(201))
     .catch((err: Error) => res.status(400));
 })
 

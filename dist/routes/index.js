@@ -9,7 +9,7 @@ const router = express_1.default.Router();
 const service = new services_1.default();
 router.post('/api', function (req, res) {
     service.create(req.body)
-        .then((note) => res.json(note))
+        .then(() => res.sendStatus(201))
         .catch((err) => res.status(400));
 });
 router.get('/api', function (req, res) {
