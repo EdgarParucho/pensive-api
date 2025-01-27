@@ -5,13 +5,18 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const services_1 = __importDefault(require("../services"));
+const bodyValidator_1 = __importDefault(require("../middleware/bodyValidator"));
+const schemaValidator_1 = __importDefault(require("../middleware/schemaValidator"));
+const validationSchemas_1 = require("../utils/validationSchemas");
 const router = express_1.default.Router();
 const service = new services_1.default();
-router.post('/api', function (req, res, next) {
+router.use(bodyValidator_1.default);
+router.post('/api', (0, schemaValidator_1.default)(validationSchemas_1.createSchema), createNoteHandler);
+function createNoteHandler(req, res, next) {
     service.create(req.body)
         .then(() => res.sendStatus(201))
         .catch((err) => next(err));
-});
+}
 router.get('/api', function (req, res, next) {
     const author = 'auth0|1234567890';
     service.read(author)
