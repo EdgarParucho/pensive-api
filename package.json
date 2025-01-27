@@ -11,7 +11,8 @@
     "migrate:undo": "sequelize-cli db:migrate:undo --env",
     "seed:generate": "sequelize-cli seed:generate --name --env",
     "seed:up": "sequelize-cli db:seed:all --env",
-    "seed:undo": "sequelize-cli db:seed:undo --env"
+    "seed:undo": "sequelize-cli db:seed:undo --env",
+    "type-check": "tsc -p tsconfig.json --noEmit"
   },
   "keywords": [],
   "author": "",

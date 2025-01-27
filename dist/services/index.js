@@ -17,21 +17,29 @@ const { models } = sequelize_1.default;
 class Service {
     create(note) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!models.Note)
+                throw new Error("Model 'Note' is not defined");
             return yield models.Note.create(note);
         });
     }
     read(author) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!models.Note)
+                throw new Error("Model 'Note' is not defined");
             return yield models.Note.findAll({ where: { author }, raw: true });
         });
     }
     update(id, note) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!models.Note)
+                throw new Error("Model 'Note' is not defined");
             return yield models.Note.update(note, { where: { id } });
         });
     }
     delete(id) {
         return __awaiter(this, void 0, void 0, function* () {
+            if (!models.Note)
+                throw new Error("Model 'Note' is not defined");
             return yield models.Note.destroy({ where: { id } });
         });
     }

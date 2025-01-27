@@ -29,13 +29,13 @@ router.get('/api',  function(req: Request, res: Response, next: NextFunction) {
 });
 
 router.patch('/api/:id', function(req: Request, res: Response, next: NextFunction) {
-  service.update(req.params.id, req.body as Partial<Note>)
+  service.update(req.params.id as string, req.body as Partial<Note>)
     .then(() => res.sendStatus(200))
     .catch((err: Error) => next(err as Error));
 });
 
 router.delete('/api/:id', function(req: Request, res: Response, next: NextFunction) {
-  service.delete(req.params.id)
+  service.delete(req.params.id as string)
     .then(() => res.sendStatus(200))
     .catch((err: Error) => next(err as Error));
 });
