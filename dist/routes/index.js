@@ -12,20 +12,21 @@ const router = express_1.default.Router();
 const service = new services_1.default();
 router.use(bodyValidator_1.default);
 router.post('/api', (0, schemaValidator_1.default)(validationSchemas_1.createSchema), createNoteHandler);
+router.patch('/api/:id', (0, schemaValidator_1.default)(validationSchemas_1.updateSchema), updateNoteHandler);
 function createNoteHandler(req, res, next) {
     service.create(req.body)
         .then(() => res.sendStatus(201))
+        .catch((err) => next(err));
+}
+function updateNoteHandler(req, res, next) {
+    service.update(req.params.id, req.body)
+        .then(() => res.sendStatus(200))
         .catch((err) => next(err));
 }
 router.get('/api', function (req, res, next) {
     const author = 'auth0|1234567890';
     service.read(author)
         .then((notes) => res.json(notes))
-        .catch((err) => next(err));
-});
-router.patch('/api/:id', function (req, res, next) {
-    service.update(req.params.id, req.body)
-        .then(() => res.sendStatus(200))
         .catch((err) => next(err));
 });
 router.delete('/api/:id', function (req, res, next) {

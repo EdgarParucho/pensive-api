@@ -1,5 +1,10 @@
 import { Request, Response, NextFunction } from "express";
 
+function errorLogger(error : Error, req: Request, res: Response, next: NextFunction) {
+  if (process.env.NODE_ENV === 'development') console.error(error);
+  next(error);
+}
+
 function dbErrorHandler(error : Error, req: Request, res: Response, next: NextFunction) {
   const { ConnectionError, ValidationError, DatabaseError } = require('sequelize');
   if (error instanceof ConnectionError) res.sendStatus(503);
@@ -12,4 +17,4 @@ function serverErrorHandler(error : Error, req: Request, res: Response, next: Ne
   res.sendStatus(500);
 }
 
-export default [dbErrorHandler, serverErrorHandler];
+export default [errorLogger, dbErrorHandler, serverErrorHandler];

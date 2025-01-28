@@ -3,17 +3,15 @@ import Note from '../database/models';
 import Service from '../services';
 import bodyValidator from '../middleware/bodyValidator';
 import schemaValidator from '../middleware/schemaValidator';
-import { createSchema } from '../utils/validationSchemas';
+import { createSchema, updateSchema } from '../utils/validationSchemas';
 
 const router = express.Router();
 const service = new Service();
 
 router.use(bodyValidator);
 
-router.post('/api',
-  schemaValidator(createSchema),
-  createNoteHandler
-);
+router.post('/api', schemaValidator(createSchema), createNoteHandler);
+router.patch('/api/:id', schemaValidator(updateSchema), updateNoteHandler);
 
 function createNoteHandler(req: Request, res: Response, next: NextFunction) {
   service.create(req.body as Partial<Note>)
@@ -21,16 +19,16 @@ function createNoteHandler(req: Request, res: Response, next: NextFunction) {
     .catch((err: Error) => next(err as Error));
 }
 
+function updateNoteHandler(req: Request, res: Response, next: NextFunction) {
+  service.update(req.params.id as string, req.body as Partial<Note>)
+    .then(() => res.sendStatus(200))
+    .catch((err: Error) => next(err as Error));
+}
+
 router.get('/api',  function(req: Request, res: Response, next: NextFunction) {
   const author = 'auth0|1234567890';
   service.read(author)
     .then((notes: Note[]) => res.json(notes))
-    .catch((err: Error) => next(err as Error));
-});
-
-router.patch('/api/:id', function(req: Request, res: Response, next: NextFunction) {
-  service.update(req.params.id as string, req.body as Partial<Note>)
-    .then(() => res.sendStatus(200))
     .catch((err: Error) => next(err as Error));
 });
 

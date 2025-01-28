@@ -15,11 +15,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importDefault(require("../database/sequelize"));
 const { models } = sequelize_1.default;
 class Service {
-    create(note) {
+    create(fields) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!models.Note)
                 throw new Error("Model 'Note' is not defined");
-            return yield models.Note.create(note);
+            return yield models.Note.create(fields);
         });
     }
     read(author) {
@@ -29,11 +29,11 @@ class Service {
             return yield models.Note.findAll({ where: { author }, raw: true });
         });
     }
-    update(id, note) {
+    update(id, fields) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!models.Note)
                 throw new Error("Model 'Note' is not defined");
-            return yield models.Note.update(note, { where: { id } });
+            return yield models.Note.update(fields, { where: { id } });
         });
     }
     delete(id) {
