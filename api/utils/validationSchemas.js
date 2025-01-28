@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateSchema = exports.createSchema = void 0;
+exports.deleteSchema = exports.updateSchema = exports.createSchema = void 0;
 const validator_1 = require("validator");
 function stringValidator(mandatory, length, value) {
     if (value == null)
@@ -37,5 +37,11 @@ exports.updateSchema = [{
             type: (value) => stringValidator(false, 50, value),
             keywords: (value) => stringValidator(false, 255, value),
             reference: (value) => stringValidator(false, 255, value),
+        }
+    }];
+exports.deleteSchema = [{
+        requestKey: 'params',
+        keyValidators: {
+            id: (value) => !(0, validator_1.isUUID)(value, 4),
         }
     }];

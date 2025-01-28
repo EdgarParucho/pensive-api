@@ -11,8 +11,19 @@ const validationSchemas_1 = require("../utils/validationSchemas");
 const router = express_1.default.Router();
 const service = new services_1.default();
 router.use(bodyValidator_1.default);
+router.get('/api', readNotesHandler);
 router.post('/api', (0, schemaValidator_1.default)(validationSchemas_1.createSchema), createNoteHandler);
 router.patch('/api/:id', (0, schemaValidator_1.default)(validationSchemas_1.updateSchema), updateNoteHandler);
+router.delete('/api/:id', (0, schemaValidator_1.default)(validationSchemas_1.deleteSchema), deleteNoteHandler);
+router.use('/*', function (_, res) {
+    res.sendStatus(404);
+});
+function readNotesHandler(req, res, next) {
+    const author = 'auth0|1234567890';
+    service.read(author)
+        .then((notes) => res.json(notes))
+        .catch((err) => next(err));
+}
 function createNoteHandler(req, res, next) {
     service.create(req.body)
         .then(() => res.sendStatus(201))
@@ -23,18 +34,9 @@ function updateNoteHandler(req, res, next) {
         .then(() => res.sendStatus(200))
         .catch((err) => next(err));
 }
-router.get('/api', function (req, res, next) {
-    const author = 'auth0|1234567890';
-    service.read(author)
-        .then((notes) => res.json(notes))
-        .catch((err) => next(err));
-});
-router.delete('/api/:id', function (req, res, next) {
+function deleteNoteHandler(req, res, next) {
     service.delete(req.params.id)
-        .then(() => res.sendStatus(200))
+        .then((itemDeleted) => itemDeleted ? res.sendStatus(204) : res.sendStatus(404))
         .catch((err) => next(err));
-});
-router.use('/*', function (req, res) {
-    res.sendStatus(404);
-});
+}
 exports.default = router;

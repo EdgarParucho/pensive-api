@@ -36,3 +36,10 @@ export const updateSchema = [{
     reference: (value: string) => stringValidator(false, 255, value),
   }
 } as Schema];
+
+export const deleteSchema = [{
+  requestKey: 'params' as keyof Request,
+  keyValidators: {
+    id: (value: string) => !isUUID(value, 4),
+  }
+} as Schema];
