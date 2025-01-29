@@ -13,7 +13,7 @@ class Service {
 
   public async read(author: string): Promise<Note[]> {
     if (!models.Note) throw new Error("Model 'Note' is not defined");
-    return await models.Note.findAll({ where: { author }, raw: true }) as Note[];
+    return await models.Note.findAll({ where: { author }, attributes: { exclude: ["author"] }, raw: true }) as Note[];
   }
 
   public async update(id: string, fields: Partial<Note>): Promise<number[]> {

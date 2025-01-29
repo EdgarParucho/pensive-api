@@ -1,4 +1,4 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from 'express';
 
 function errorLogger(error : Error, req: Request, res: Response, next: NextFunction) {
   if (process.env.NODE_ENV === 'development') console.error(error);

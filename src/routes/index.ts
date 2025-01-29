@@ -26,7 +26,7 @@ function readNotesHandler(req: Request, res: Response, next: NextFunction) {
 }
 
 function createNoteHandler(req: Request, res: Response, next: NextFunction) {
-  service.create(req.body as Partial<Note>)
+  service.create({ ...req.body as Partial<Note>, author: 'auth0|1234567890' })
     .then(() => res.sendStatus(201))
     .catch((err: Error) => next(err as Error));
 }
