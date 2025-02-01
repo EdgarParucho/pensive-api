@@ -1,9 +1,16 @@
 import { Request, Response, NextFunction } from 'express';
 
 function errorLogger(error : Error, req: Request, res: Response, next: NextFunction) {
-  if (process.env.NODE_ENV === 'development') console.error(error);
+  if (process.env.NODE_ENV === 'development') console.error('catching: ', error);
   next(error);
 }
+
+function authErrorHandler(error : Error, req: Request, res: Response, next: NextFunction) {
+  const { UnauthorizedError } = require('express-oauth2-jwt-bearer');
+  if (error instanceof UnauthorizedError) res.sendStatus(401);
+  else next(error);
+}
+
 
 function dbErrorHandler(error : Error, req: Request, res: Response, next: NextFunction) {
   const { ConnectionError, ValidationError, DatabaseError } = require('sequelize');
@@ -17,4 +24,4 @@ function serverErrorHandler(error : Error, req: Request, res: Response, next: Ne
   res.sendStatus(500);
 }
 
-export default [errorLogger, dbErrorHandler, serverErrorHandler];
+export default [errorLogger, authErrorHandler, dbErrorHandler, serverErrorHandler];

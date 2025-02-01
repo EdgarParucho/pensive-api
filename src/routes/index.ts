@@ -4,11 +4,12 @@ import Service from '../services';
 import bodyValidator from '../middleware/bodyValidator';
 import schemaValidator from '../middleware/schemaValidator';
 import { createSchema, updateSchema, deleteSchema } from '../utils/validationSchemas';
+import authenticator from '../middleware/authenticator';
 
 const router = express.Router();
 const service = new Service();
 
-router.use(bodyValidator);
+router.use(authenticator, bodyValidator);
 
 router.get('/api', readNotesHandler);
 router.post('/api', schemaValidator(createSchema), createNoteHandler);

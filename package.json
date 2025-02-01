@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
+    "build:tsc": "tsc",
     "start": "cross-env NODE_ENV=production node ./api",
     "dev": "cross-env NODE_ENV=development nodemon",
     "migrate:generate": "sequelize-cli migration:generate --name",
@@ -38,6 +38,7 @@
     "cors": "^2.8.5",
     "cross-env": "^7.0.3",
     "express": "^4.21.2",
+    "express-oauth2-jwt-bearer": "^1.6.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
     "reflect-metadata": "^0.2.2",
