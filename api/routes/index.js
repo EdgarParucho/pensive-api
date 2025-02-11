@@ -8,9 +8,10 @@ const services_1 = __importDefault(require("../services"));
 const bodyValidator_1 = __importDefault(require("../middleware/bodyValidator"));
 const schemaValidator_1 = __importDefault(require("../middleware/schemaValidator"));
 const validationSchemas_1 = require("../utils/validationSchemas");
+const authenticator_1 = __importDefault(require("../middleware/authenticator"));
 const router = express_1.default.Router();
 const service = new services_1.default();
-router.use(bodyValidator_1.default);
+router.use(authenticator_1.default, bodyValidator_1.default);
 router.get('/api', readNotesHandler);
 router.post('/api', (0, schemaValidator_1.default)(validationSchemas_1.createSchema), createNoteHandler);
 router.patch('/api/:id', (0, schemaValidator_1.default)(validationSchemas_1.updateSchema), updateNoteHandler);
@@ -25,7 +26,7 @@ function readNotesHandler(req, res, next) {
         .catch((err) => next(err));
 }
 function createNoteHandler(req, res, next) {
-    service.create(req.body)
+    service.create(Object.assign(Object.assign({}, req.body), { author: 'auth0|1234567890' }))
         .then(() => res.sendStatus(201))
         .catch((err) => next(err));
 }

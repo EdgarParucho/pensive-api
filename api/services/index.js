@@ -26,7 +26,7 @@ class Service {
         return __awaiter(this, void 0, void 0, function* () {
             if (!models.Note)
                 throw new Error("Model 'Note' is not defined");
-            return yield models.Note.findAll({ where: { author }, raw: true });
+            return yield models.Note.findAll({ where: { author }, attributes: { exclude: ["author"] }, raw: true });
         });
     }
     update(id, fields) {

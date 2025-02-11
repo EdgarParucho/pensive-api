@@ -21,7 +21,9 @@ router.use('/*', function(_, res: Response) {
 
 function readNotesHandler(req: Request, res: Response, next: NextFunction) {
   const author = 'auth0|1234567890';
-  service.read(author)
+  const { query } = req.query;
+  
+  service.read({ author, query } as { author: string, query: string })
     .then((notes: Note[]) => res.json(notes))
     .catch((err: Error) => next(err as Error));
 }

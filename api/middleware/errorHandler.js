@@ -2,8 +2,15 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 function errorLogger(error, req, res, next) {
     if (process.env.NODE_ENV === 'development')
-        console.error(error);
+        console.error('catching: ', error);
     next(error);
+}
+function authErrorHandler(error, req, res, next) {
+    const { UnauthorizedError } = require('express-oauth2-jwt-bearer');
+    if (error instanceof UnauthorizedError)
+        res.sendStatus(401);
+    else
+        next(error);
 }
 function dbErrorHandler(error, req, res, next) {
     const { ConnectionError, ValidationError, DatabaseError } = require('sequelize');
@@ -19,4 +26,4 @@ function dbErrorHandler(error, req, res, next) {
 function serverErrorHandler(error, req, res, next) {
     res.sendStatus(500);
 }
-exports.default = [errorLogger, dbErrorHandler, serverErrorHandler];
+exports.default = [errorLogger, authErrorHandler, dbErrorHandler, serverErrorHandler];
