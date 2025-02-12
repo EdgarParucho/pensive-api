@@ -2,8 +2,8 @@ import express, { Request, Response, NextFunction } from 'express';
 import Note from '../database/models';
 import Service from '../services';
 import bodyValidator from '../middleware/bodyValidator';
-import schemaValidator from '../middleware/schemaValidator';
-import { createSchema, updateSchema, deleteSchema } from '../utils/validationSchemas';
+import { noteSchemaValidator, searchSchemaValidator } from '../middleware/schemaValidator';
+import { createSchema, updateSchema, deleteSchema, searchSchema } from '../utils/validationSchemas';
 import authenticator from '../middleware/authenticator';
 
 const router = express.Router();
@@ -11,19 +11,18 @@ const service = new Service();
 
 router.use(authenticator, bodyValidator);
 
-router.get('/api', readNotesHandler);
-router.post('/api', schemaValidator(createSchema), createNoteHandler);
-router.patch('/api/:id', schemaValidator(updateSchema), updateNoteHandler);
-router.delete('/api/:id', schemaValidator(deleteSchema), deleteNoteHandler);
+router.get('/api', searchSchemaValidator(searchSchema), readNotesHandler);
+router.post('/api', noteSchemaValidator(createSchema), createNoteHandler);
+router.patch('/api/:id', noteSchemaValidator(updateSchema), updateNoteHandler);
+router.delete('/api/:id', noteSchemaValidator(deleteSchema), deleteNoteHandler);
 router.use('/*', function(_, res: Response) {
   res.sendStatus(404)
 });
 
 function readNotesHandler(req: Request, res: Response, next: NextFunction) {
   const author = 'auth0|1234567890';
-  const { query } = req.query;
-  
-  service.read({ author, query } as { author: string, query: string })
+  const { search } = req.query;
+  service.read({ author, search } as { author: string, search: string })
     .then((notes: Note[]) => res.json(notes))
     .catch((err: Error) => next(err as Error));
 }

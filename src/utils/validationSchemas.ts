@@ -1,5 +1,5 @@
 import { Request } from 'express';
-import { Schema } from './types';
+import { NoteSchemaValidator, SearchSchemaValidator } from './types';
 import { isUUID } from 'validator';
 
 function stringValidator(mandatory: boolean, length: number | null, value: string | null): boolean {
@@ -19,14 +19,14 @@ export const createSchema = [{
     keywords: (value: string) => stringValidator(false, 255, value),
     reference: (value: string) => stringValidator(false, 255, value),
   }
-} as Schema];
+} as NoteSchemaValidator];
 
 export const updateSchema = [{
   requestKey: 'params' as keyof Request,
   keyValidators: {
     id: (value: string) => !isUUID(value, 4),
   }
-} as Schema, {
+} as NoteSchemaValidator, {
   requestKey: 'body' as keyof Request,
   keyValidators: {
     title: (value: string) => stringValidator(false, 255, value),
@@ -35,11 +35,18 @@ export const updateSchema = [{
     keywords: (value: string) => stringValidator(false, 255, value),
     reference: (value: string) => stringValidator(false, 255, value),
   }
-} as Schema];
+} as NoteSchemaValidator];
+
+export const searchSchema = {
+  requestKey: 'query',
+  keyValidators: {
+    search: (value: string) => stringValidator(true, 255, value)
+  }
+} as SearchSchemaValidator;
 
 export const deleteSchema = [{
   requestKey: 'params' as keyof Request,
   keyValidators: {
     id: (value: string) => !isUUID(value, 4),
   }
-} as Schema];
+} as NoteSchemaValidator];

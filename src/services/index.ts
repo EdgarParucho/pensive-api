@@ -12,15 +12,15 @@ class Service {
     return await models.Note.create(fields);
   }
 
-  public async read({ author, query }: { author: string, query: string }): Promise<Note[]> {
+  public async read({ author, search }: { author: string, search: string }): Promise<Note[]> {
     if (!models.Note) throw new Error("Model 'Note' is not defined");
     return await models.Note.findAll({
       where: {
         author,
         [Op.or]: {
-          title: { [Op.iLike]: query },
-          body: { [Op.iLike]: query },
-          keywords: { [Op.iLike]: query }
+          title: { [Op.iLike]: search },
+          body: { [Op.iLike]: search },
+          keywords: { [Op.iLike]: search }
         }
       },
       attributes: { exclude: ["author"] }, raw: true
