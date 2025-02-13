@@ -18,9 +18,9 @@ class Service {
       where: {
         author,
         [Op.or]: {
-          title: { [Op.iLike]: search },
-          body: { [Op.iLike]: search },
-          keywords: { [Op.iLike]: search }
+          title: { [Op.iLike]: `%${search}%` },
+          body: { [Op.iLike]: `%${search}%` },
+          keywords: { [Op.iLike]: `%${search}%` }
         }
       },
       attributes: { exclude: ["author"] }, raw: true

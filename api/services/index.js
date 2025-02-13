@@ -13,6 +13,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const sequelize_1 = __importDefault(require("../database/sequelize"));
+const sequelize_2 = require("sequelize");
 const { models } = sequelize_1.default;
 class Service {
     create(fields) {
@@ -22,11 +23,21 @@ class Service {
             return yield models.Note.create(fields);
         });
     }
-    read(author) {
-        return __awaiter(this, void 0, void 0, function* () {
+    read(_a) {
+        return __awaiter(this, arguments, void 0, function* ({ author, search }) {
             if (!models.Note)
                 throw new Error("Model 'Note' is not defined");
-            return yield models.Note.findAll({ where: { author }, attributes: { exclude: ["author"] }, raw: true });
+            return yield models.Note.findAll({
+                where: {
+                    author,
+                    [sequelize_2.Op.or]: {
+                        title: { [sequelize_2.Op.iLike]: `%${search}%` },
+                        body: { [sequelize_2.Op.iLike]: `%${search}%` },
+                        keywords: { [sequelize_2.Op.iLike]: `%${search}%` }
+                    }
+                },
+                attributes: { exclude: ["author"] }, raw: true
+            });
         });
     }
     update(id, fields) {

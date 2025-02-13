@@ -1,6 +1,8 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-function schemaValidator(schemas) {
+exports.noteSchemaValidator = noteSchemaValidator;
+exports.searchSchemaValidator = searchSchemaValidator;
+function noteSchemaValidator(schemas) {
     return (req, res, next) => {
         for (let schema of schemas) {
             const { requestKey, keyValidators } = schema;
@@ -25,4 +27,24 @@ function schemaValidator(schemas) {
         next();
     };
 }
-exports.default = schemaValidator;
+function searchSchemaValidator(schema) {
+    return (req, res, next) => {
+        const { requestKey, keyValidators } = schema;
+        const payload = req[requestKey];
+        const requestKeys = Object.keys(keyValidators);
+        for (let key of requestKeys) {
+            const payloadValue = payload.search;
+            const keyValidator = keyValidators.search;
+            const wrongValue = keyValidator(payloadValue);
+            if (wrongValue)
+                return res.sendStatus(400);
+        }
+        const payloadKeys = Object.keys(payload);
+        for (let key of payloadKeys) {
+            const keyIsNotExpected = (key) => !requestKeys.includes(key);
+            if (keyIsNotExpected(key))
+                return res.sendStatus(409);
+        }
+        next();
+    };
+}

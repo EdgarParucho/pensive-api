@@ -6,22 +6,23 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const services_1 = __importDefault(require("../services"));
 const bodyValidator_1 = __importDefault(require("../middleware/bodyValidator"));
-const schemaValidator_1 = __importDefault(require("../middleware/schemaValidator"));
+const schemaValidator_1 = require("../middleware/schemaValidator");
 const validationSchemas_1 = require("../utils/validationSchemas");
 const authenticator_1 = __importDefault(require("../middleware/authenticator"));
 const router = express_1.default.Router();
 const service = new services_1.default();
 router.use(authenticator_1.default, bodyValidator_1.default);
-router.get('/api', readNotesHandler);
-router.post('/api', (0, schemaValidator_1.default)(validationSchemas_1.createSchema), createNoteHandler);
-router.patch('/api/:id', (0, schemaValidator_1.default)(validationSchemas_1.updateSchema), updateNoteHandler);
-router.delete('/api/:id', (0, schemaValidator_1.default)(validationSchemas_1.deleteSchema), deleteNoteHandler);
+router.get('/api', (0, schemaValidator_1.searchSchemaValidator)(validationSchemas_1.searchSchema), readNotesHandler);
+router.post('/api', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.createSchema), createNoteHandler);
+router.patch('/api/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.updateSchema), updateNoteHandler);
+router.delete('/api/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.deleteSchema), deleteNoteHandler);
 router.use('/*', function (_, res) {
     res.sendStatus(404);
 });
 function readNotesHandler(req, res, next) {
     const author = 'auth0|1234567890';
-    service.read(author)
+    const { search } = req.query;
+    service.read({ author, search })
         .then((notes) => res.json(notes))
         .catch((err) => next(err));
 }
