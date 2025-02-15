@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build:tsc": "tsc",
+    "build": "tsc",
     "start": "cross-env NODE_ENV=production node ./api",
     "dev": "cross-env NODE_ENV=development nodemon",
     "migrate:generate": "sequelize-cli migration:generate --name",
