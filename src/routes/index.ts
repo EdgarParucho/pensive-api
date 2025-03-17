@@ -20,7 +20,7 @@ router.use('/*', function(_, res: Response) {
 });
 
 function readNotesHandler(req: Request, res: Response, next: NextFunction) {
-  const author = 'auth0|1234567890';
+  const author = req.auth?.payload.sub;
   const { search } = req.query;
   service.read({ author, search } as { author: string, search: string })
     .then((notes: Note[]) => res.json(notes))
@@ -28,7 +28,8 @@ function readNotesHandler(req: Request, res: Response, next: NextFunction) {
 }
 
 function createNoteHandler(req: Request, res: Response, next: NextFunction) {
-  service.create({ ...req.body as Partial<Note>, author: 'auth0|1234567890' })
+  const author = req.auth?.payload.sub;
+  service.create({ ...req.body as Partial<Note>, author })
     .then(() => res.sendStatus(201))
     .catch((err: Error) => next(err as Error));
 }
