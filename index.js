@@ -1,8 +1,8 @@
 import express from 'express';
 import cors from 'cors';
-import router from './routes';
+import router from './src/routes';
 import morgan from 'morgan';
-import errorHandler from './middleware/errorHandler';
+import errorHandler from './src/middleware/errorHandler';
 
 const app = express();
 const port = process.env.PORT || 3000;

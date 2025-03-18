@@ -1,5 +1,5 @@
-import { Sequelize } from 'sequelize-typescript';
-import { dbName, dbUser, dbPassword, dbHost, dbPort, dbDialect } from '../config/';
+import { Sequelize } from 'sequelize';
+import { dbName, dbUser, dbPassword, dbHost, dbPort, dbDialect } from '../config';
 
 const inProduction = process.env.NODE_ENV === 'production';
 

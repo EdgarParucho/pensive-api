@@ -3,36 +3,24 @@
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
-    "build": "tsc",
-    "start": "cross-env NODE_ENV=production node ./api",
-    "dev": "cross-env NODE_ENV=development nodemon",
+    "start": "cross-env NODE_ENV=production node index.js",
+    "dev": "cross-env NODE_ENV=development nodemon index.js",
     "migrate:generate": "sequelize-cli migration:generate --name",
     "migrate:up": "sequelize-cli db:migrate --env",
     "migrate:undo": "sequelize-cli db:migrate:undo --env",
     "seed:generate": "sequelize-cli seed:generate --name --env",
     "seed:up": "sequelize-cli db:seed:all --env",
-    "seed:undo": "sequelize-cli db:seed:undo --env",
-    "type-check": "tsc -p tsconfig.json --noEmit"
+    "seed:undo": "sequelize-cli db:seed:undo --env"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
   "devDependencies": {
-    "@types/cors": "^2.8.17",
-    "@types/dotenv": "^6.1.1",
-    "@types/express": "^5.0.0",
-    "@types/morgan": "^1.9.9",
-    "@types/node": "^22.10.5",
-    "@types/pg": "^8.11.10",
-    "@types/sequelize": "^4.28.20",
-    "@types/validator": "^13.12.2",
     "dotenv": "^16.4.7",
     "morgan": "^1.10.0",
     "nodemon": "^3.1.9",
-    "sequelize-cli": "^6.6.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.7.3"
+    "sequelize-cli": "^6.6.2"
   },
   "dependencies": {
     "cors": "^2.8.5",
@@ -41,8 +29,6 @@
     "express-oauth2-jwt-bearer": "^1.6.0",
     "pg": "^8.13.1",
     "pg-hstore": "^2.3.4",
-    "reflect-metadata": "^0.2.2",
-    "sequelize": "^6.37.5",
-    "sequelize-typescript": "^2.1.6"
+    "sequelize": "^6.37.5"
   }
 }
