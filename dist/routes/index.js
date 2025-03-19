@@ -20,14 +20,17 @@ router.use('/*', function (_, res) {
     res.sendStatus(404);
 });
 function readNotesHandler(req, res, next) {
-    const author = 'auth0|1234567890';
+    var _a;
+    const author = (_a = req.auth) === null || _a === void 0 ? void 0 : _a.payload.sub;
     const { search } = req.query;
     service.read({ author, search })
         .then((notes) => res.json(notes))
         .catch((err) => next(err));
 }
 function createNoteHandler(req, res, next) {
-    service.create(Object.assign(Object.assign({}, req.body), { author: 'auth0|1234567890' }))
+    var _a;
+    const author = (_a = req.auth) === null || _a === void 0 ? void 0 : _a.payload.sub;
+    service.create(Object.assign(Object.assign({}, req.body), { author }))
         .then(() => res.sendStatus(201))
         .catch((err) => next(err));
 }
