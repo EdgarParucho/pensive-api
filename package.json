@@ -4,7 +4,7 @@
   "main": "index.js",
   "scripts": {
     "build": "tsc",
-    "start": "cross-env NODE_ENV=production node ./api",
+    "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon",
     "migrate:generate": "sequelize-cli migration:generate --name",
     "migrate:up": "sequelize-cli db:migrate --env",
