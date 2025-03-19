@@ -1,15 +1,15 @@
-const { Sequelize, DataTypes, Model } = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 
-const NOTE_TABLE = 'notes';
+const NOTE_TABLE = 'Notes';
 
-const noteScehma = {
+const noteSchema = {
   id: {
     primaryKey: true,
     type: DataTypes.UUID,
     defaultValue: Sequelize.UUIDV4,
   },
   author: {
-    type: DataTypes.String,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   date: {
@@ -18,36 +18,23 @@ const noteScehma = {
     defaultValue: Sequelize.NOW,
   },
   title: {
-    type: DataTypes.String,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   body: {
-    type: DataType.TEXT('medium'),
+    type: DataTypes.TEXT('medium'),
     allowNull: false,
   },
   type: {
-    type: DataTypes.String,
+    type: DataTypes.STRING,
     allowNull: false,
   },
   keywords: {
-    type: DataTypes.String,
+    type: DataTypes.STRING,
   },
   reference: {
-    type: DataTypes.String,
+    type: DataTypes.STRING,
   },
 }
 
-class Note extends Model {
-  static config(sequelize) {
-    return {
-      sequelize,
-      tableName: NOTE_TABLE,
-      modelName: 'Note',
-      timeStamps: false,
-      createdAt: false,
-      updatedAt: false,
-    }
-  }
-}
-
-module.exports = { NOTE_TABLE, noteScehma, Note };
+module.exports = { NOTE_TABLE, noteSchema };

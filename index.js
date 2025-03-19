@@ -1,8 +1,8 @@
-import express from 'express';
-import cors from 'cors';
-import router from './src/routes';
-import morgan from 'morgan';
-import errorHandler from './src/middleware/errorHandler';
+const express = require('express')
+const cors = require('cors')
+const router = require('./src/routes')
+const morgan = require('morgan')
+const errorHandler = require('./src/middleware/errorHandler')
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -19,4 +19,4 @@ app.listen(port, () => process.env.NODE_ENV === 'development'
   : null
 );
 
-export default app;
+module.exports = app;

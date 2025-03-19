@@ -1,18 +1,16 @@
-import sequelize from "../database/sequelize";
-import Note from "../database/models";
-import { Model } from "sequelize";
-import { Op } from "sequelize";
+const sequelize = require("../database/sequelize");
+const { Op } = require("sequelize");
 
 const { models } = sequelize;
 
 class Service {
 
-  public async create(fields: Partial<Note>): Promise<Model>{
+  async create(fields){
     if (!models.Note) throw new Error("Model 'Note' is not defined");
     return await models.Note.create(fields);
   }
 
-  public async read({ author, search }: { author: string, search: string }): Promise<Note[]> {
+  async read({ author, search }) {
     if (!models.Note) throw new Error("Model 'Note' is not defined");
     return await models.Note.findAll({
       where: {
@@ -24,18 +22,18 @@ class Service {
         }
       },
       attributes: { exclude: ["author"] }, raw: true
-    }) as Note[];
+    });
   }
 
-  public async update(id: string, fields: Partial<Note>): Promise<number[]> {
+  async update(id, fields) {
     if (!models.Note) throw new Error("Model 'Note' is not defined");
     return await models.Note.update(fields, { where: { id } });
   }
 
-  public async delete(id: string): Promise<number> {
+  async delete(id) {
     if (!models.Note) throw new Error("Model 'Note' is not defined");
     return await models.Note.destroy({ where: { id } });
   }
 }
 
-export default Service;
+module.exports = Service;
