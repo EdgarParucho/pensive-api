@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("../config");
+const models_1 = __importDefault(require("../database/models"));
 class Auth0Service {
     constructor() {
         this.UpdateAccount = ({ author, password }) => new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
@@ -27,6 +31,25 @@ class Auth0Service {
                     reject(response);
                 else
                     resolve(response);
+            }
+            catch (error) {
+                reject(error);
+            }
+        }));
+        this.DeleteAccount = ({ author }) => new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
+            try {
+                const accessToken = yield this.getManagementApiAccesToken();
+                const response = yield fetch(`${config_1.issuerBaseURL}api/v2/users/${author}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${accessToken}`,
+                        'Content-Type': 'application/json'
+                    }
+                });
+                if (response.status >= 400)
+                    throw new Error(response.statusText);
+                yield models_1.default.destroy({ where: { author } });
+                resolve(response);
             }
             catch (error) {
                 reject(error);

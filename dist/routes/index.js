@@ -19,6 +19,7 @@ router.post('/api/note', (0, schemaValidator_1.noteSchemaValidator)(validationSc
 router.patch('/api/note/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.updateSchema), updateNoteHandler);
 router.delete('/api/note/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.deleteSchema), deleteNoteHandler);
 router.patch('/api/account', updateAccountHandler);
+router.delete('/api/account', deleteAccountHandler);
 router.use('/*', function (_, res) {
     res.sendStatus(404);
 });
@@ -50,6 +51,12 @@ function deleteNoteHandler(req, res, next) {
 function updateAccountHandler(req, res, next) {
     var _a;
     auth0Service.UpdateAccount({ author: (_a = req.auth) === null || _a === void 0 ? void 0 : _a.payload.sub, password: req.body })
+        .then(() => res.sendStatus(204))
+        .catch((err) => next(err));
+}
+function deleteAccountHandler(req, res, next) {
+    var _a;
+    auth0Service.DeleteAccount({ author: (_a = req.auth) === null || _a === void 0 ? void 0 : _a.payload.sub })
         .then(() => res.sendStatus(204))
         .catch((err) => next(err));
 }
