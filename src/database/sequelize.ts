@@ -1,6 +1,6 @@
 import pg from 'pg';
 import { Sequelize } from 'sequelize-typescript';
-import { dbName, dbUser, dbPassword, dbHost, dbPort, dbDialect } from '../config/';
+import { dbName, dbUser, dbPassword, dbHost, dbPort } from '../config';
 
 const inProduction = process.env.NODE_ENV === 'production';
 

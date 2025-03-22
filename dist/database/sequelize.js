@@ -5,7 +5,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 const pg_1 = __importDefault(require("pg"));
 const sequelize_typescript_1 = require("sequelize-typescript");
-const config_1 = require("../config/");
+const config_1 = require("../config");
 const inProduction = process.env.NODE_ENV === 'production';
 const sequelize = new sequelize_typescript_1.Sequelize({
     dialect: 'postgres',
