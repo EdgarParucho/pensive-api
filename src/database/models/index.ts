@@ -31,10 +31,6 @@ class Note extends Model {
   @Column({ allowNull: false })
   body!: string;
 
-  @NotNull
-  @Column({ allowNull: false })
-  type!: string;
-
   @Column
   keywords?: string;
 

@@ -10,8 +10,7 @@ module.exports = {
       author: { type: DataType.STRING, allowNull: false },
       date: { type: DataType.DATEONLY, defaultValue: DataType.NOW },
       title: { type: DataType.STRING, allowNull: false },
-      body: { type: DataType.TEXT('medium'), allowNull: false },
-      type: { type: DataType.STRING, allowNull: false },
+      body: { type: DataType.TEXT, allowNull: false },
       keywords: { type: DataType.STRING },
       reference: { type: DataType.STRING },
     });

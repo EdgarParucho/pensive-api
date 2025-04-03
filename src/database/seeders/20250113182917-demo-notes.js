@@ -10,9 +10,8 @@ module.exports = {
         date: '2025-01-14',
         title: 'Seeds',
         body: 'Seed files are some change in data that can be used to populate database tables with sample or test data.',
-        type: 'definition',
         keywords: 'seed, seeds, seeding, database',
-        reference: 'Sequelize. (2025). Migrations. https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-seed',
+        reference: '{ type: "website", authors: [{ firstName: "Sequelize", lastName: "", fullName: "Sequelize" }], year: 2025, title: "Seeds", website: "Seeds - Sequelize", url: "https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-seed" }',
       },
       {
         id: 'c9538c9f-7e7c-4dc9-b353-e78cdeaf00d5',
@@ -20,9 +19,8 @@ module.exports = {
         date: '2025-01-15',
         title: 'Migrations',
         body: 'Just like you use version control systems such as Git to manage changes in your source code, you can use migrations to keep track of changes to the database. With migrations you can transfer your existing database into another state and vice versa: Those state transitions are saved in migration files, which describe how to get to the new state and how to revert the changes in order to get back to the old state.',
-        type: 'definition',
         keywords: 'migration, migrations, database',
-        reference: 'Sequelize. (2025). Migrations. https://sequelize.org/docs/v6/other-topics/migrations',
+        reference: '{ type: "website", authors: [{ firstName: "Sequelize", lastName: "", fullName: "Sequelize" }], year: 2025, title: "Migrations", website: "Migrations - Sequelize", url: "https://sequelize.org/docs/v6/other-topics/migrations/#creating-the-first-seed" }',
       }
     ], {});
   },

@@ -19,7 +19,6 @@ exports.createSchema = [{
         keyValidators: {
             title: (value) => stringValidator(true, 255, value),
             body: (value) => stringValidator(true, null, value),
-            type: (value) => stringValidator(true, 50, value),
             keywords: (value) => stringValidator(false, 255, value),
             reference: (value) => stringValidator(false, 255, value),
         }
@@ -34,7 +33,6 @@ exports.updateSchema = [{
         keyValidators: {
             title: (value) => stringValidator(false, 255, value),
             body: (value) => stringValidator(false, null, value),
-            type: (value) => stringValidator(false, 50, value),
             keywords: (value) => stringValidator(false, 255, value),
             reference: (value) => stringValidator(false, 255, value),
         }
