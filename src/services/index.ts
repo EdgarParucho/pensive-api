@@ -18,7 +18,6 @@ class Service {
       where: {
         author,
         [Op.or]: {
-          title: { [Op.iLike]: `%${search}%` },
           body: { [Op.iLike]: `%${search}%` },
           keywords: { [Op.iLike]: `%${search}%` },
           reference: { [Op.iLike]: `%${search}%` }

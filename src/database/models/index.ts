@@ -25,10 +25,6 @@ class Note extends Model {
 
   @NotNull
   @Column({ allowNull: false })
-  title!: string;
-
-  @NotNull
-  @Column({ allowNull: false })
   body!: string;
 
   @Column

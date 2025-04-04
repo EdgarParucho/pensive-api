@@ -13,7 +13,6 @@ function stringValidator(mandatory: boolean, length: number | null, value: strin
 export const createSchema = [{
   requestKey: 'body' as keyof Request,
   keyValidators: {
-    title: (value: string) => stringValidator(true, 255, value),
     body: (value: string) => stringValidator(true, null, value),
     keywords: (value: string) => stringValidator(false, 255, value),
     reference: (value: string) => stringValidator(false, 255, value),
@@ -28,7 +27,6 @@ export const updateSchema = [{
 } as NoteSchemaValidator, {
   requestKey: 'body' as keyof Request,
   keyValidators: {
-    title: (value: string) => stringValidator(false, 255, value),
     body: (value: string) => stringValidator(false, null, value),
     keywords: (value: string) => stringValidator(false, 255, value),
     reference: (value: string) => stringValidator(false, 255, value),
