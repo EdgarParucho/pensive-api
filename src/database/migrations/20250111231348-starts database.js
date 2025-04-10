@@ -11,7 +11,7 @@ module.exports = {
       date: { type: DataType.DATEONLY, defaultValue: DataType.NOW },
       body: { type: DataType.TEXT, allowNull: false },
       keywords: { type: DataType.STRING },
-      reference: { type: DataType.STRING },
+      reference: { type: DataType.STRING(500) },
     });
   },
 

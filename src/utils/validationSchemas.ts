@@ -15,7 +15,7 @@ export const createSchema = [{
   keyValidators: {
     body: (value: string) => stringValidator(true, null, value),
     keywords: (value: string) => stringValidator(false, 255, value),
-    reference: (value: string) => stringValidator(false, 255, value),
+    reference: (value: string) => stringValidator(false, 500, value),
   }
 } as NoteSchemaValidator];
 
@@ -29,7 +29,7 @@ export const updateSchema = [{
   keyValidators: {
     body: (value: string) => stringValidator(false, null, value),
     keywords: (value: string) => stringValidator(false, 255, value),
-    reference: (value: string) => stringValidator(false, 255, value),
+    reference: (value: string) => stringValidator(false, 500, value),
   }
 } as NoteSchemaValidator];
 
