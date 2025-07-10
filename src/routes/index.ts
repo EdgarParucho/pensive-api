@@ -6,12 +6,31 @@ import bodyValidator from '../middleware/bodyValidator';
 import { noteSchemaValidator, searchSchemaValidator } from '../middleware/schemaValidator';
 import { createSchema, updateSchema, deleteSchema, searchSchema } from '../utils/validationSchemas';
 import authenticator from '../middleware/authenticator';
+import { demoUser } from '../config';
 
 const router = express.Router();
 const service = new Service();
 const auth0Service = new Auth0Service();
 
-router.use(authenticator, bodyValidator);
+router.use('/api', bodyValidator);
+router.use('/api/public', function(req, res, next) {
+  req.auth = { 
+    payload: { sub: demoUser }, 
+    header: {}, 
+    token: '' 
+  };
+  next();
+});
+
+router.get('/api/public/note', searchSchemaValidator(searchSchema), readNotesHandler);
+router.post('/api/public/note', noteSchemaValidator(createSchema), createNoteHandler);
+router.patch('/api/public/note/:id', noteSchemaValidator(updateSchema), updateNoteHandler);
+router.delete('/api/public/note/:id', noteSchemaValidator(deleteSchema), deleteNoteHandler);
+
+router.patch('/api/public/account', updateAccountHandler);
+router.delete('/api/public/account', deleteAccountHandler);
+
+router.use(authenticator);
 
 router.get('/api/note', searchSchemaValidator(searchSchema), readNotesHandler);
 router.post('/api/note', noteSchemaValidator(createSchema), createNoteHandler);

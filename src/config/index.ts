@@ -14,3 +14,4 @@ export const issuerBaseURL = inProduction ? process.env.AUTH0_ISSUER_URL : proce
 export const auth0ManageApiClientID = inProduction ? process.env.AUTH0_MANAGE_API_CLIENT_ID : process.env.AUTH0_MANAGE_API_CLIENT_ID_DEV
 export const auth0ManageApiClientSecret = inProduction ? process.env.AUTH0_MANAGE_API_CLIENT_SECRET : process.env.AUTH0_MANAGE_API_CLIENT_SECRET_DEV
 export const auth0ManageApiGrant = process.env.AUTH0_MANAGE_API_GRANT;
+export const demoUser = process.env.DEMO_USER;
