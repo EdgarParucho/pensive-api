@@ -11,7 +11,6 @@ function authErrorHandler(error : Error, req: Request, res: Response, next: Next
   else next(error);
 }
 
-
 function dbErrorHandler(error : Error, req: Request, res: Response, next: NextFunction) {
   const { ConnectionError, ValidationError, DatabaseError } = require('sequelize');
   if (error instanceof ConnectionError) res.sendStatus(503);

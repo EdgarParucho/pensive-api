@@ -8,7 +8,6 @@ module.exports = {
     database: process.env.DB_NAME_DEV,
     host: process.env.DB_HOST_DEV,
     port: Number(process.env.DB_PORT_DEV),
-    dialectOptions: {}
   },
   production: {
     dialect: 'postgres',
@@ -17,6 +16,5 @@ module.exports = {
     database: process.env.DB_NAME,
     host: process.env.DB_HOST,
     port: Number(process.env.DB_PORT),
-    dialectOptions: { ssl: true },
   }
 };
