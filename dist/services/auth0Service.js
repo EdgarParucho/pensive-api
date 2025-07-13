@@ -12,14 +12,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const config_1 = require("../config");
+const auth_1 = __importDefault(require("../config/auth"));
 const models_1 = __importDefault(require("../database/models"));
+const { issuerBaseURL, authGrantType, authClientID, authClientSecret } = auth_1.default;
 class Auth0Service {
     constructor() {
         this.UpdateAccount = ({ author, password }) => new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const accessToken = yield this.getManagementApiAccesToken();
-                const response = yield fetch(`${config_1.issuerBaseURL}api/v2/users/${author}`, {
+                const response = yield fetch(`${issuerBaseURL}api/v2/users/${author}`, {
                     method: 'PATCH',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -39,7 +40,7 @@ class Auth0Service {
         this.DeleteAccount = ({ author }) => new Promise((resolve, reject) => __awaiter(this, void 0, void 0, function* () {
             try {
                 const accessToken = yield this.getManagementApiAccesToken();
-                const response = yield fetch(`${config_1.issuerBaseURL}api/v2/users/${author}`, {
+                const response = yield fetch(`${issuerBaseURL}api/v2/users/${author}`, {
                     method: 'DELETE',
                     headers: {
                         'Authorization': `Bearer ${accessToken}`,
@@ -57,14 +58,14 @@ class Auth0Service {
         }));
     }
     getManagementApiAccesToken() {
-        return fetch(`${config_1.issuerBaseURL}oauth/token`, {
+        return fetch(`${issuerBaseURL}oauth/token`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
-                audience: `${config_1.issuerBaseURL}api/v2/`,
-                grant_type: config_1.auth0ManageApiGrant,
-                client_id: config_1.auth0ManageApiClientID,
-                client_secret: config_1.auth0ManageApiClientSecret,
+                audience: `${issuerBaseURL}api/v2/`,
+                grant_type: authGrantType,
+                client_id: authClientID,
+                client_secret: authClientSecret,
             }),
         })
             .then((response) => response.json())

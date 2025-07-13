@@ -31,9 +31,9 @@ class Service {
                 where: {
                     author,
                     [sequelize_2.Op.or]: {
-                        title: { [sequelize_2.Op.iLike]: `%${search}%` },
                         body: { [sequelize_2.Op.iLike]: `%${search}%` },
-                        keywords: { [sequelize_2.Op.iLike]: `%${search}%` }
+                        keywords: { [sequelize_2.Op.iLike]: `%${search}%` },
+                        reference: { [sequelize_2.Op.iLike]: `%${search}%` }
                     }
                 },
                 attributes: { exclude: ["author"] }, raw: true

@@ -1,5 +1,7 @@
-import { issuerBaseURL, auth0ManageApiGrant, auth0ManageApiClientID, auth0ManageApiClientSecret } from "../config";
+import authConfig from "../config/auth";
 import Note from "../database/models";
+
+const { issuerBaseURL, authGrantType, authClientID, authClientSecret } = authConfig;
 
 class Auth0Service {
 
@@ -9,9 +11,9 @@ class Auth0Service {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         audience: `${issuerBaseURL}api/v2/`,
-        grant_type: auth0ManageApiGrant,
-        client_id: auth0ManageApiClientID,
-        client_secret: auth0ManageApiClientSecret,
+        grant_type: authGrantType,
+        client_id: authClientID,
+        client_secret: authClientSecret,
       }),
     })
       .then((response) => response.json())

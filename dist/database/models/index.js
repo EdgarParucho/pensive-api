@@ -32,11 +32,6 @@ __decorate([
     sequelize_typescript_1.NotNull,
     (0, sequelize_typescript_1.Column)({ allowNull: false }),
     __metadata("design:type", String)
-], Note.prototype, "title", void 0);
-__decorate([
-    sequelize_typescript_1.NotNull,
-    (0, sequelize_typescript_1.Column)({ allowNull: false }),
-    __metadata("design:type", String)
 ], Note.prototype, "body", void 0);
 __decorate([
     sequelize_typescript_1.Column,

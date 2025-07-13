@@ -17,10 +17,9 @@ function stringValidator(mandatory, length, value) {
 exports.createSchema = [{
         requestKey: 'body',
         keyValidators: {
-            title: (value) => stringValidator(true, 255, value),
             body: (value) => stringValidator(true, null, value),
             keywords: (value) => stringValidator(false, 255, value),
-            reference: (value) => stringValidator(false, 255, value),
+            reference: (value) => stringValidator(false, 500, value),
         }
     }];
 exports.updateSchema = [{
@@ -31,10 +30,9 @@ exports.updateSchema = [{
     }, {
         requestKey: 'body',
         keyValidators: {
-            title: (value) => stringValidator(false, 255, value),
             body: (value) => stringValidator(false, null, value),
             keywords: (value) => stringValidator(false, 255, value),
-            reference: (value) => stringValidator(false, 255, value),
+            reference: (value) => stringValidator(false, 500, value),
         }
     }];
 exports.searchSchema = {

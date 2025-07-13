@@ -1,20 +1,14 @@
 import pg from 'pg';
 import { Sequelize } from 'sequelize-typescript';
-import { dbName, dbUser, dbPassword, dbHost, dbPort } from '../config';
-
-const inProduction = process.env.NODE_ENV === 'production';
+import { environment } from '../config/server';
+import dbConfig from '../config/database';
 
 const sequelize = new Sequelize({
+  ...dbConfig[environment],
   dialect: 'postgres',
   dialectModule: pg,
-  database: dbName,
-  username: dbUser,
-  password: dbPassword,
-  host: dbHost,
-  port: dbPort,
   models: [__dirname + '/models'],
-  logging: inProduction ? false : console.log,
-  ssl: inProduction
+  logging: environment === 'production' ? false : console.log,
 });
 
 export default sequelize;

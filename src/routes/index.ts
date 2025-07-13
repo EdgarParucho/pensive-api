@@ -6,7 +6,7 @@ import bodyValidator from '../middleware/bodyValidator';
 import { noteSchemaValidator, searchSchemaValidator } from '../middleware/schemaValidator';
 import { createSchema, updateSchema, deleteSchema, searchSchema } from '../utils/validationSchemas';
 import authenticator from '../middleware/authenticator';
-import { demoUser } from '../config';
+import authConfig from '../config/auth';
 
 const router = express.Router();
 const service = new Service();
@@ -15,7 +15,7 @@ const auth0Service = new Auth0Service();
 router.use('/api', bodyValidator);
 router.use('/api/public', function(req, res, next) {
   req.auth = { 
-    payload: { sub: demoUser }, 
+    payload: { sub: authConfig.demoUser }, 
     header: {}, 
     token: '' 
   };

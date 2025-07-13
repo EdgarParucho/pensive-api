@@ -10,10 +10,26 @@ const bodyValidator_1 = __importDefault(require("../middleware/bodyValidator"));
 const schemaValidator_1 = require("../middleware/schemaValidator");
 const validationSchemas_1 = require("../utils/validationSchemas");
 const authenticator_1 = __importDefault(require("../middleware/authenticator"));
+const auth_1 = __importDefault(require("../config/auth"));
 const router = express_1.default.Router();
 const service = new services_1.default();
 const auth0Service = new auth0Service_1.default();
-router.use(authenticator_1.default, bodyValidator_1.default);
+router.use('/api', bodyValidator_1.default);
+router.use('/api/public', function (req, res, next) {
+    req.auth = {
+        payload: { sub: auth_1.default.demoUser },
+        header: {},
+        token: ''
+    };
+    next();
+});
+router.get('/api/public/note', (0, schemaValidator_1.searchSchemaValidator)(validationSchemas_1.searchSchema), readNotesHandler);
+router.post('/api/public/note', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.createSchema), createNoteHandler);
+router.patch('/api/public/note/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.updateSchema), updateNoteHandler);
+router.delete('/api/public/note/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.deleteSchema), deleteNoteHandler);
+router.patch('/api/public/account', updateAccountHandler);
+router.delete('/api/public/account', deleteAccountHandler);
+router.use(authenticator_1.default);
 router.get('/api/note', (0, schemaValidator_1.searchSchemaValidator)(validationSchemas_1.searchSchema), readNotesHandler);
 router.post('/api/note', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.createSchema), createNoteHandler);
 router.patch('/api/note/:id', (0, schemaValidator_1.noteSchemaValidator)(validationSchemas_1.updateSchema), updateNoteHandler);
